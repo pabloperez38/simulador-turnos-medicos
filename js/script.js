@@ -38,7 +38,6 @@ async function cargarOpcionesEspecialidad() {
         cargarOpcionesMedico();
     } catch (error) {
         fncSweetAlert("error", `Error al cargar especialidades`, null);
-    
     }
 }
 
@@ -180,17 +179,19 @@ function cargarTurnosDesdeLocalStorage() {
 document.getElementById("selectMedico").addEventListener("change", function () {
     const medicoSeleccionado = this.value;
 
+    // Limpiar estadísticas o tiempos anteriores
+    document.getElementById("salida").textContent = "";
+
     const tbody = document.querySelector("#tablaTurnos tbody");
-    tbody.innerHTML = ""; // limpiar
+    tbody.innerHTML = ""; // limpiar tabla
 
     const turnosFiltrados = medicoSeleccionado
         ? turnos.filter((t) => t.medico === medicoSeleccionado)
         : turnos;
 
-    if (turnosFiltrados.length === 0) {
-        imprimir("No hay turnos para ese médico.");
+    if (turnosFiltrados.length === 0 && medicoSeleccionado !== "") {
+        fncSweetAlert("error", "No hay turnos para este médico", null);
     } else {
-        imprimir("");
         turnosFiltrados.forEach((t) => agregarTurnoATabla(t));
     }
 });
