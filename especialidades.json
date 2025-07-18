@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Cardiología", 
+    "medico": "Dra. Laura Gómez"
+  },
+  {
+    "id": 2,
+    "name": "Pediatría",  
+    "medico": "Dr. Marcos Pérez"
+  },
+  {
+    "id": 3,
+    "name": "Traumatología",   
+    "medico": "Dr. Andrés Salinas"
+  },
+  {
+    "id": 4,
+    "name": "Dermatología",  
+    "medico": "Dra. Cecilia Muñoz"
+  },
+  {
+    "id": 5,
+    "name": "Ginecología",    
+    "medico": "Dra. Valeria Sosa"
+  },
+  {
+    "id": 6,
+    "name": "Neurología",   
+    "medico": "Dr. Jorge Miranda"
+  },
+  {
+    "id": 7,
+    "name": "Oftalmología",  
+    "medico": "Dra. Fernanda Rivas"
+  },
+  {
+    "id": 8,
+    "name": "Otorrinolaringología",   
+    "medico": "Dr. Martín Acosta"
+  }
+]
