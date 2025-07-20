@@ -9,6 +9,8 @@ document.getElementById("formTurno").addEventListener("submit", function (e) {
 
 let listaEspecialidades = [];
 
+//Carga especialidades desde JSON
+
 async function cargarOpcionesEspecialidad() {
     const select = document.getElementById("especialidad");
 
@@ -41,6 +43,8 @@ async function cargarOpcionesEspecialidad() {
     }
 }
 
+//Carga médicos únicos en el select
+// Se asume que cada especialidad tiene un campo "medico"
 function cargarOpcionesMedico() {
     const selectMedico = document.getElementById("selectMedico");
     const medicosUnicos = [
@@ -55,6 +59,8 @@ function cargarOpcionesMedico() {
     });
 }
 
+// Actualiza la visibilidad de la tabla y mensajes según los turnos
+// Si hay turnos, muestra la tabla y oculta el mensaje; si no, muestra el mensaje y oculta la tabla
 function actualizarVisibilidadTabla() {
     const tabla = document.getElementById("tablaTurnos");
     const mensaje = document.getElementById("mensajeSinTurnos");
@@ -67,6 +73,8 @@ function actualizarVisibilidadTabla() {
     acciones.style.display = hayTurnos ? "block" : "none";
 }
 
+// Registra un nuevo turno
+// Valida los campos del formulario y agrega el turno a la lista y a la tabla
 function registrarTurno() {
     const inputNombre = document.getElementById("nombre");
     const inputEdad = document.getElementById("edad");
@@ -141,6 +149,8 @@ function registrarTurno() {
     actualizarVisibilidadTabla();
 }
 
+// Agrega un turno a la tabla HTML
+// Crea una fila con los datos del turno y la agrega al tbody de la tabla
 function agregarTurnoATabla(turno) {
     const tbody = document.querySelector("#tablaTurnos tbody");
     const fila = document.createElement("tr");
@@ -160,6 +170,8 @@ function agregarTurnoATabla(turno) {
     tbody.appendChild(fila);
 }
 
+// Elimina un turno por ID
+// Muestra una alerta de confirmación y, si se confirma, elimina el turno de la lista y de la tabla
 function eliminarTurno(id) {
     const turno = turnos.find((t) => t.id === id);
 
@@ -197,11 +209,14 @@ function eliminarTurno(id) {
     });
 }
 
-
+// Guarda los turnos en LocalStorage
+// Convierte la lista de turnos a JSON y la almacena en LocalStorage
 function guardarTurnosEnLocalStorage() {
     localStorage.setItem("turnos", JSON.stringify(turnos));
 }
 
+// Carga los turnos desde LocalStorage al iniciar la aplicación
+// Si hay turnos guardados, los parsea y los agrega a la lista
 function cargarTurnosDesdeLocalStorage() {
     const datos = localStorage.getItem("turnos");
     if (datos) {
@@ -214,6 +229,8 @@ function cargarTurnosDesdeLocalStorage() {
     actualizarVisibilidadTabla();
 }
 
+// Filtra los turnos por médico seleccionado
+// Al cambiar el select de médicos, filtra los turnos y actualiza la tabla
 document.getElementById("selectMedico").addEventListener("change", function () {
     const medicoSeleccionado = this.value;
 
@@ -234,6 +251,8 @@ document.getElementById("selectMedico").addEventListener("change", function () {
     }
 });
 
+// Calcula el tiempo de espera para cada turno
+// Muestra el tiempo de espera acumulado para cada turno del médico seleccionado
 function calcularTiempoEspera() {
     imprimir("");
 
@@ -259,6 +278,7 @@ function calcularTiempoEspera() {
     imprimir(salida);
 }
 
+// Muestra estadísticas de los turnos
 function mostrarEstadisticas() {
     imprimir("");
 
@@ -301,6 +321,8 @@ function mostrarEstadisticas() {
     imprimir(salida);
 }
 
+// Imprime un mensaje en el elemento con ID "salida"
+// Utiliza textContent para evitar problemas de seguridad con innerHTML
 function imprimir(mensaje) {
     document.getElementById("salida").textContent = mensaje;
 }
