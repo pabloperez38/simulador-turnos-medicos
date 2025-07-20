@@ -61,10 +61,6 @@ Este proyecto es un simulador de turnos médicos desarrollado con **JavaScript**
 ]
 ```
 
-## 📸 Capturas (opcional)
-
-> *(Podés agregar capturas de pantalla del sistema funcionando aquí, por ejemplo con etiquetas Markdown o imágenes subidas al repositorio)*
-
 ## 📝 Licencia
 
 Este proyecto está publicado bajo la licencia MIT. Podés usarlo, modificarlo y compartirlo libremente.
