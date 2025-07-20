@@ -55,6 +55,18 @@ function cargarOpcionesMedico() {
     });
 }
 
+function actualizarVisibilidadTabla() {
+    const tabla = document.getElementById("tablaTurnos");
+    const mensaje = document.getElementById("mensajeSinTurnos");
+    const acciones = document.getElementById("accionesTurnos");
+
+    const hayTurnos = turnos.length > 0;
+
+    tabla.style.display = hayTurnos ? "table" : "none";
+    mensaje.style.display = hayTurnos ? "none" : "block";
+    acciones.style.display = hayTurnos ? "block" : "none";
+}
+
 function registrarTurno() {
     const inputNombre = document.getElementById("nombre");
     const inputEdad = document.getElementById("edad");
@@ -125,6 +137,8 @@ function registrarTurno() {
     fncSweetAlert("success", `Turno registrado para ${nombre}`, null);
 
     document.getElementById("nombreMedico").style.display = "none";
+
+    actualizarVisibilidadTabla();
 }
 
 function agregarTurnoATabla(turno) {
@@ -147,19 +161,42 @@ function agregarTurnoATabla(turno) {
 }
 
 function eliminarTurno(id) {
-    turnos = turnos.filter((t) => t.id !== id);
+    const turno = turnos.find((t) => t.id === id);
 
-    guardarTurnosEnLocalStorage();
+    if (!turno) {
+        fncSweetAlert("error", `No se encontró el turno #${id}`, null);
+        return;
+    }
 
-    // Elimina la fila de la tabla
-    const fila = document.querySelector(
-        `#tablaTurnos tbody tr[data-id="${id}"]`
-    );
-    if (fila) fila.remove();
-    fncSweetAlert("success", `Turno #${id} eliminado`, null);
+    Swal.fire({
+        title: "¿Estás seguro?",
+        text: `¿Querés eliminar el turno #${id} de ${turno.nombre}? Esta acción no se puede deshacer.`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Sí, eliminar",
+        cancelButtonText: "Cancelar"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Elimina el turno
+            turnos = turnos.filter((t) => t.id !== id);
+            guardarTurnosEnLocalStorage();
 
-    imprimir("");
+            // Elimina la fila de la tabla
+            const fila = document.querySelector(
+                `#tablaTurnos tbody tr[data-id="${id}"]`
+            );
+            if (fila) fila.remove();
+
+            fncSweetAlert("success", `Turno #${id} de ${turno.nombre} eliminado`, null);
+            imprimir("");
+
+            actualizarVisibilidadTabla();
+        }
+    });
 }
+
 
 function guardarTurnosEnLocalStorage() {
     localStorage.setItem("turnos", JSON.stringify(turnos));
@@ -174,6 +211,7 @@ function cargarTurnosDesdeLocalStorage() {
             turnos.forEach((t) => agregarTurnoATabla(t));
         }
     }
+    actualizarVisibilidadTabla();
 }
 
 document.getElementById("selectMedico").addEventListener("change", function () {

@@ -70,16 +70,18 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <button
-                            class="btn btn-info"
-                            onclick="mostrarEstadisticas()">
-                            Mostrar Estadísticas
-                        </button>
-                        <button
-                            class="btn btn-warning"
-                            onclick="calcularTiempoEspera()">
-                            Calcular Tiempo de Espera
-                        </button>
+                        <div id="accionesTurnos" style="display: none">
+                            <button
+                                class="btn btn-info"
+                                onclick="mostrarEstadisticas()">
+                                Mostrar Estadísticas
+                            </button>
+                            <button
+                                class="btn btn-warning"
+                                onclick="calcularTiempoEspera()">
+                                Calcular Tiempo de Espera
+                            </button>
+                        </div>
                     </div>
 
                     <pre id="salida" class="bg-light p-3"></pre>
@@ -87,7 +89,10 @@
                 <div class="col-md-12">
                     <h4>Listado de Turnos</h4>
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="tablaTurnos">
+                        <table
+                            class="table table-bordered"
+                            id="tablaTurnos"
+                            style="display: none">
                             <thead class="table-light">
                                 <tr>
                                     <th>ID</th>
@@ -101,6 +106,11 @@
                             </thead>
                             <tbody></tbody>
                         </table>
+                        <p
+                            id="mensajeSinTurnos"
+                            style="display: none; font-weight: bold">
+                            No hay turnos registrados.
+                        </p>
                     </div>
                 </div>
             </div>
